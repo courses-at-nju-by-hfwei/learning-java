@@ -29,8 +29,10 @@ public class IfPresentThrowException
 			});
 	}
 	
-	private class SpecificException extends Exception
+	private class SpecificException extends RuntimeException
 	{
+		private static final long serialVersionUID = 1883839476219392351L;
+
 		public SpecificException(String msg)
 		{
 			super(msg);
