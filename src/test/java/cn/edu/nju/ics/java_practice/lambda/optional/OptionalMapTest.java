@@ -23,7 +23,7 @@ public class OptionalMapTest
 	}
 
 	@Test
-	public void test()
+	public void testCollectListOfOptionalToListOf()
 	{
 		List<String> stringSet = Arrays.asList("s", "ss", "sss");
 		
