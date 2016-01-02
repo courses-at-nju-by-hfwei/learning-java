@@ -28,7 +28,8 @@ public class GroupingByTest
 	public void testGroupingWordsByLength()
 	{
 		Map<Integer, List<String>> actualLength2StrListMap = words.parallelStream()
-				.collect(Collectors.groupingBy(String::length, Collectors.toList()));
+				.collect(Collectors.groupingBy(String::length, Collectors.toList()));	
+		// here groupingByConcurrent is better for performance; however, the order should be ignore for equality-test; for example: Collectors.toSet() 
 
 		Map<Integer, List<String>> actualLength2StrListMap2 = words.parallelStream()
 				.collect(Collectors.groupingBy(String::length));
