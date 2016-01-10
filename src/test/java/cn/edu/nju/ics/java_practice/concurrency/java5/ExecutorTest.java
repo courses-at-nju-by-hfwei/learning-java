@@ -26,13 +26,33 @@ public class ExecutorTest {
 	@Before
 	public void setUp() throws Exception {}
 
+	
 	/**
-	 * Q: Does {@link ExecutorService#invokeAll(java.util.Collection)} block the caller thread?
-	 * A: Yes.
+	 * <p>Q: Does {@link ExecutorService#submit(Callable)} block the caller thread?
+	 * <p>A: No.
+	 * @throws InterruptedException
+	 */
+	@Test
+	public void testSubmitCallableBlockingMechanism() throws InterruptedException {
+		Thread.currentThread().setName("Caller");
+		
+		long startTime = System.currentTimeMillis();
+		exec.submit(new Task(10));
+		long endTime = System.currentTimeMillis();
+		
+		assertFalse(String.format("The thread [%s] should have been blocked.", Thread.currentThread().getName()), 
+				endTime - startTime >= WAITING_TIME);
+	}
+	
+	/**
+	 * <p>Q: Does {@link ExecutorService#invokeAll(java.util.Collection)} block the caller thread?
+	 * <p>A: Yes.
 	 * @throws InterruptedException
 	 */
 	@Test
 	public void testInvokeAllBlockingMechanism() throws InterruptedException {
+		Thread.currentThread().setName("Caller");
+		
 		List<Task> tasks = IntStream.range(0, 5)
 				.mapToObj(Task::new)
 				.collect(toList());
